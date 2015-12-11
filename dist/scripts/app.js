@@ -10,7 +10,7 @@ blocItOff.config(function($stateProvider, $locationProvider, $urlRouterProvider)
 	});
 	
 	$urlRouterProvider.otherwise('/');
-		// removes the /!/ from URL
+		// removes /!/ from URL
 
 	$stateProvider.state('landing', {
 			url: '/',
