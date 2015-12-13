@@ -1,6 +1,6 @@
 blocItOff.controller('MainCtrl', function($scope, $firebaseObject, $firebaseArray) {
 	
-	$scope.title = "BlocItOff!";
+	$scope.title = "Current Tasks";
 	// testing		
 	
 	var ref = new Firebase("https://shining-fire-1964.firebaseio.com/");
