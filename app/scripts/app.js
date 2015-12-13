@@ -8,23 +8,13 @@ blocItOff.config(function($stateProvider, $locationProvider, $urlRouterProvider)
 		enabled: true,
 		requireBase: false
 	});
-	
-	$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/');
 		// removes /!/ from URL
 
-	$stateProvider.state('landing', {
+	$stateProvider.state('home', {
 			url: '/',
-			controller: 'LandingCtrl',
-			templateUrl: '/templates/landing.html'
-		});	
-
-	// keeping the "main" controller in app.js while I figure things out
-	blocItOff.controller("mainCtrl", function($scope, $firebaseObject) {
-
-		var ref = new Firebase("https://shining-fire-1964.firebaseio.com");
-		// download the data into a local object
-		$scope.data = $firebaseObject(ref);
-
-	});
+			controller: 'MainCtrl',
+			templateUrl: '/templates/home.html'
+		});
 	
 });

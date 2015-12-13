@@ -1,1 +1,21 @@
-<h1>Home Page</h1>
+<!--Title-->
+<section class="title">
+	<h1>{{ title }}</h1>
+</section>
+
+<!--Display tasks-->
+<section class="tasks">
+	<section ng-repeat="task in tasks">
+		<input type="checkbox"> {{ task.name }}</input>
+	</section>
+</section>
+<br>
+
+<!--Delete a task - this button doesn't work yet-->
+<button ng-click="tasks.$remove(task)">Delete Task</button>
+<br><br>
+<!--Add a Task-->
+<form ng-submit="addTask()">
+	<input ng-model="newTaskName" />
+		<button type="submit">Add Task</button>
+</form>

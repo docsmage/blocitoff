@@ -1,0 +1,14 @@
+#container {
+  margin: auto;
+  position: absolute;
+  height: 60%;
+  width: 40%;
+  top: 0; left: 0; bottom: 0; right: 0;
+  text-align: center;
+  font-family: Georgia;
+	
+	/*for testing purposes*/
+/*	border-style: solid; */
+/*  border-padding: 1px;*/
+/*  border-color: red;*/
+}
