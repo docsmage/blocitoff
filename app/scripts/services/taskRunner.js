@@ -47,17 +47,19 @@ blocItOff.factory("taskRunner", function ($firebaseObject, $firebaseArray) {
 		},
 		
 		// moves tasks from active to archived view
-		archiveTasks: function () {
-			
-			// loop over selected tasks and set their active to false			
+		archiveTasks: function (tasks) {
+						
+			debugger;
+			// loop over selected tasks and set their active to false
 			for (var i = 0; i < selectedTasks.length; i++) {
-				task[i].active = false;
+				if (tasks[i].active = true) {
+					tasks[i].active = false;
+				}
 			}
-			
 			// reset selectedTasks = []
 			selectedTasks = [];
-			// deletetasks will be the same
 		},
+			// deletetasks will be the same
 		
 		addTask: function (taskName) {
 			tasks.$add({

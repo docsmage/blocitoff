@@ -24,6 +24,7 @@
 		<!-- app files -->
 		<script src="/scripts/app.js"></script>
 		<script src="/scripts/controllers/MainCtrl.js"></script>
+		<script src="/scripts/controllers/NavCtrl.js"></script>		
 		<script src="/scripts/services/taskRunner.js"></script>
 
 	</head>
@@ -31,9 +32,8 @@
 <body id="container">
 
 	<section class="navbar" ng-controller="NavCtrl">
-		<a ng-click="setTasks('all')">All Tasks</a>  <a ng-click="setTasks('active')">Active Tasks</a>  <a ng-click="setTasks('archived')">Archived Tasks</a>
+		<a ng-click="setTasks('all')">All</a> | <a ng-click="setTasks('active')">Active</a> | <a ng-click="setTasks('archived')">Archived</a>
 	</section>
-	
 	<ui-view>
 	<!-- Where templates come to life! -->
 	</ui-view>
