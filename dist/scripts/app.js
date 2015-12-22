@@ -11,10 +11,16 @@ blocItOff.config(function($stateProvider, $locationProvider, $urlRouterProvider)
 		$urlRouterProvider.otherwise('/');
 		// removes /!/ from URL
 
-	$stateProvider.state('home', {
+	$stateProvider.state('activeTasks', {
 			url: '/',
 			controller: 'MainCtrl',
-			templateUrl: '/templates/home.html'
+			templateUrl: '/templates/activetasks.html'
+		});
+
+	$stateProvider.state('archivedTasks', {
+			url: '/',
+			controller: 'MainCtrl',
+			templateUrl: '/templates/archivedtasks.html'
 		});
 	
 });

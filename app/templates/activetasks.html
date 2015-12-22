@@ -1,0 +1,27 @@
+<!--Title-->
+<section class="title">
+	<h2>{{ title }}</h2>
+</section>
+
+<!--Display tasks-->
+<section class="tasks">
+	<section ng-repeat="task in tasks">
+		<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)"> 
+		<span>{{ task.name }}</span>
+	<!--
+		<i ng-click="deleteTask(task)" />
+	-->
+	</section>
+</section>
+<br>
+
+<!--Delete a task - this button doesn't work yet-->
+<button ng-click="removeTasks()">Delete Task</button>
+<!--Mark as old-->
+<button ng-click="archiveTasks()">Mark as Archived</button>
+<br><br>
+<!--Add a Task-->
+<form ng-submit="addTask()">
+	<input ng-model="newTaskName" />
+		<button type="submit">Add Task</button>
+</form>
