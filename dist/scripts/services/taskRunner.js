@@ -71,7 +71,6 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			
 			for (var i = 0; i < totalTasks; i++) {
 				if (tasks[i].created_at <= (todaysDateTime - sevenDays)) {
-					// the logic here isn't right - fix it!
 					expiredTasks.push(tasks[i]);
 				}
 			}
@@ -80,14 +79,16 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		
 		// moves tasks from active to archived
 		archiveTasks: function () {
-			for (var i = 0; i < selectedTasks.length; i++) {				ref.child(selectedTasks[i].$id).update({active: false});
+			for (var i = 0; i < selectedTasks.length; i++) {
+				ref.child(selectedTasks[i].$id).update({active: false});
 			}
 			selectedTasks = [];
 		},
 		
 		// moves tasks from active to archived
 		reactivateTasks: function () {
-			for (var i = 0; i < selectedTasks.length; i++) {				ref.child(selectedTasks[i].$id).update({active: true});
+			for (var i = 0; i < selectedTasks.length; i++) {
+				ref.child(selectedTasks[i].$id).update({active: true});
 			}
 			selectedTasks = [];
 		},		

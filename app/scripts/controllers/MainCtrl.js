@@ -5,7 +5,7 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 	// defines tasks object
 	$scope.tasks = TaskRunner.getAllTasks();
 
-	// switches view between all, active and archived tasks
+	// switches view
 	$rootScope.$watch("currentTaskType", function (type) {
 		if (type !== undefined) {
 			$scope.setTasks(type);
