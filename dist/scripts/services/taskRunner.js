@@ -44,6 +44,20 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			}
 			return archivedTasks;		
 		},
+		
+		getCompletedTasks: function () {
+
+		var completedTasks = [],
+		totalTasks = tasks.length;
+		
+			for (var i = 0; i < totalTasks; i++) {
+				if (tasks[i].completed) {
+					completedTasks.push(tasks[i]);
+					tasks[i]
+				}
+			}
+			return completedTasks;		
+		},
 	
 		// retrieves expired tasks for view
 		getExpiredTasks: function () {
@@ -81,7 +95,6 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		// removes tasks completely
 		removeTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
-//				tasks[i].remove();
 				ref.child(selectedTasks[i].$id).remove();
 			}
 			selectedTasks = [];
@@ -92,8 +105,8 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			tasks.$add({
 				name: taskName,
 				active: true,
-				created_at: Firebase.ServerValue.TIMESTAMP
-				// code for the creation date to be added
+				created_at: Firebase.ServerValue.TIMESTAMP,
+				completed: false
 			});
 		},
 		
@@ -103,6 +116,13 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			selectedTasks.push(task);
 		} else {	selectedTasks.splice(selectedTasks.indexOf(task), 1);
 			}
+		},
+		
+		markCompleted: function () {
+			for (var i = 0; i < selectedTasks.length; i++) {
+				ref.child(selectedTasks[i].$id).update({completed: true});
+			}
+			selectedTasks = [];
 		}
 		
 	}; // ends return

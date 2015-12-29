@@ -7,9 +7,13 @@
 <section class="tasks">
 	<section ng-repeat="task in tasks">
 		<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)"> 
-		<span ng-class="{archived: !task.active, active: task.active}">{{ task.name }}</span>
+		<span ng-class="{archived: !task.active, active: task.active, completed: task.completed}">{{ task.name }}</span>
 	</section>
 </section>
+<br>
+
+<!--Mark task as completed-->
+<button ng-click="markCompleted()">Mark as Complete</button>
 <br><br>
 
 <!--Delete a task-->

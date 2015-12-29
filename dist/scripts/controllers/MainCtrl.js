@@ -24,6 +24,10 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 				$scope.tasks = TaskRunner.getArchivedTasks();
 			$scope.title = "Archived Tasks";
 		}
+		else if (type === "completed") {
+			$scope.tasks = TaskRunner.getCompletedTasks();
+			$scope.title = "Completed Tasks";
+		}
 		else {
 			$scope.tasks = TaskRunner.getExpiredTasks();
 			$scope.title = "Expired Tasks";
@@ -53,6 +57,11 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 	// reactivate tasks
 	$scope.reactivateTasks = function (task) {
 	TaskRunner.reactivateTasks(task);
+	};
+	
+	// mark tasks as completed
+	$scope.markCompleted = function (task) {
+	TaskRunner.markCompleted(task);
 	};
 										 
 });

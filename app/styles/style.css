@@ -26,3 +26,7 @@ border-color: red;
 .active {
 	font-weight: bold;
 }
+
+.completed {
+	text-decoration: line-through;
+}
