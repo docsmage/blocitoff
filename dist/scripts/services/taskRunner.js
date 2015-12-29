@@ -11,13 +11,9 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 
 	return {
 
-		// retrives all tasks for view
+		// retrieves all tasks for view
 		getAllTasks: function () {
 			return tasks;	
-		},
-		
-		getExpiredTasks: function () {
-			
 		},
 		
 		// retrieves active tasks for view
@@ -31,7 +27,6 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 					activeTasks.push(tasks[i]);
 				}
 			}
-			
 			return activeTasks;
 		},
 		
@@ -47,26 +42,40 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 					tasks[i]
 				}
 			}
-			
 			return archivedTasks;		
 		},
+	
+		// retrieves expired tasks for view - IN PROGRESS
+		getExpiredTasks: function () {
+			
+			var expiredTasks = [],
+					totalTasks = tasks.length;
+			for (var i = 0; i < totalTasks; i++) {
+				if (tasks[i].expired) { // doesn't exist yet
+					expiredTasks.push(tasks[i]);
+				}
+			}
+			
+			return expiredTasks;
+		},
 		
-		// moves tasks from active to archived view
+		// moves tasks from active to archived
 		archiveTasks: function () {
-			// loop over selected tasks and set their active status in tasks to false
 			for (var i = 0; i < selectedTasks.length; i++) {				ref.child(selectedTasks[i].$id).update({active: false});
 			}
 			selectedTasks = [];
 		},
-		// it works until I refresh the page, and it's not updating it in firebase!
 		
+		// removes tasks completely
 		removeTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
-				tasks[i].remove();
+//				tasks[i].remove();
+				ref.child(selectedTasks[i].$id).remove();
 			}
 			selectedTasks = [];
 		},
 		
+		// adds one new task at a time
 		addTask: function (taskName) {
 			tasks.$add({
 				name: taskName,

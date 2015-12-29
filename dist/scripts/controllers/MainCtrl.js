@@ -12,6 +12,7 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 		}
 	});
 	
+	// set tasks in view
 	$scope.setTasks = function (type) {
 		if (type === "all") {
 			$scope.tasks = TaskRunner.getAllTasks();
@@ -19,9 +20,13 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 		}	 else if (type === "active") {
 			$scope.tasks = TaskRunner.getActiveTasks();
 			$scope.title = "Active Tasks";
-		} else {
+		} else if (type === "archived") {
 				$scope.tasks = TaskRunner.getArchivedTasks();
 			$scope.title = "Archived Tasks";
+		}
+		else {
+			$scope.tasks = TaskRunner.getExpiredTasks();
+			$scope.title = "Expired Tasks";
 		}
 	};
 	
@@ -30,9 +35,8 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 	TaskRunner.addTask($scope.newTaskName);
 	};
 	
-	// remove tasks - doesn't work yet
-	$scope.removeTask = function (tasks) {
-		console.log("removing...", selectedTasks);
+	// remove tasks
+	$scope.removeTask = function (task) {
 		TaskRunner.removeTasks(task);
 	};
 	

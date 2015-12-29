@@ -14,13 +14,7 @@ blocItOff.config(function($stateProvider, $locationProvider, $urlRouterProvider)
 	$stateProvider.state('activeTasks', {
 			url: '/',
 			controller: 'MainCtrl',
-			templateUrl: '/templates/activetasks.html'
-		});
-
-	$stateProvider.state('archivedTasks', {
-			url: '/',
-			controller: 'MainCtrl',
-			templateUrl: '/templates/archivedtasks.html'
+			templateUrl: '/templates/tasks.html'
 		});
 	
 });
