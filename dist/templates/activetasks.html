@@ -7,16 +7,13 @@
 <section class="tasks">
 	<section ng-repeat="task in tasks">
 		<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)"> 
-		<span>{{ task.name }}</span>
-	<!--
-		<i ng-click="deleteTask(task)" />
-	-->
+		<span ng-class="{archived: !task.active, active: task.active}">{{ task.name }}</span>
 	</section>
 </section>
 <br>
 
 <!--Delete a task - this button doesn't work yet-->
-<button ng-click="removeTasks()">Delete Task</button>
+<button ng-click="removeTask()">Delete</button>
 <!--Mark as old-->
 <button ng-click="archiveTasks()">Mark as Archived</button>
 <br><br>

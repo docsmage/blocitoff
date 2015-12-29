@@ -16,3 +16,11 @@
 .navbar {
 	font-weight: bold;
 }
+
+.archived {
+	color: grey;
+}
+
+.active {
+	font-weight: bold;
+}

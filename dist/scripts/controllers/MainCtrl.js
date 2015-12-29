@@ -1,9 +1,9 @@
-blocItOff.controller('MainCtrl', function($scope, taskRunner, $rootScope) {
+blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 	
 	// default title
 	$scope.title = "All Tasks";
 	// defines tasks object
-	$scope.tasks = taskRunner.getAllTasks();
+	$scope.tasks = TaskRunner.getAllTasks();
 
 	// switches view between all, active and archived tasks
 	$rootScope.$watch("currentTaskType", function (type) {
@@ -14,34 +14,36 @@ blocItOff.controller('MainCtrl', function($scope, taskRunner, $rootScope) {
 	
 	$scope.setTasks = function (type) {
 		if (type === "all") {
-			$scope.tasks = taskRunner.getAllTasks();
+			$scope.tasks = TaskRunner.getAllTasks();
 			$scope.title = "All Tasks";
 		}	 else if (type === "active") {
-			$scope.tasks = taskRunner.getActiveTasks();
+			$scope.tasks = TaskRunner.getActiveTasks();
 			$scope.title = "Active Tasks";
 		} else {
-				$scope.tasks = taskRunner.getArchivedTasks();
+				$scope.tasks = TaskRunner.getArchivedTasks();
 			$scope.title = "Archived Tasks";
 		}
 	};
 	
-// add a task
+// add tasks
 	$scope.addTask = function() {
-	taskRunner.addTask($scope.newTaskName);
+	TaskRunner.addTask($scope.newTaskName);
 	};
 	
-	// remove a task - doesn't work yet
-	$scope.removeTasks = function (tasks) {
+	// remove tasks - doesn't work yet
+	$scope.removeTask = function (tasks) {
 		console.log("removing...", selectedTasks);
+		TaskRunner.removeTasks(task);
 	};
 	
-	// select a task - needed for removing and archiving multiple tasks at once
+	// select tasks
 	$scope.selectTask = function (task) {
-		taskRunner.selectTask(task);
+		TaskRunner.selectTask(task);
 	};
 
+	// archive tasks
 	$scope.archiveTasks = function (task) {
-		taskRunner.archiveTasks(task);
+		TaskRunner.archiveTasks(task);
 	}
 	
 });

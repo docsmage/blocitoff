@@ -1,7 +1,7 @@
-blocItOff.factory("taskRunner", function ($firebaseObject, $firebaseArray) {
+blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 
+	// downloads data
 	var ref = new Firebase("https://shining-fire-1964.firebaseio.com/");
-		// download the data into a local object using 'new'
 
 	// holds tasks	
 	var tasks = $firebaseArray(ref);
@@ -14,6 +14,10 @@ blocItOff.factory("taskRunner", function ($firebaseObject, $firebaseArray) {
 		// retrives all tasks for view
 		getAllTasks: function () {
 			return tasks;	
+		},
+		
+		getExpiredTasks: function () {
+			
 		},
 		
 		// retrieves active tasks for view
@@ -40,6 +44,7 @@ blocItOff.factory("taskRunner", function ($firebaseObject, $firebaseArray) {
 			for (var i = 0; i < totalTasks; i++) {
 				if (!tasks[i].active) {
 					archivedTasks.push(tasks[i]);
+					tasks[i]
 				}
 			}
 			
@@ -47,24 +52,27 @@ blocItOff.factory("taskRunner", function ($firebaseObject, $firebaseArray) {
 		},
 		
 		// moves tasks from active to archived view
-		archiveTasks: function (tasks) {
-						
-			debugger;
-			// loop over selected tasks and set their active to false
-			for (var i = 0; i < selectedTasks.length; i++) {
-				if (tasks[i].active = true) {
-					tasks[i].active = false;
-				}
+		archiveTasks: function () {
+			// loop over selected tasks and set their active status in tasks to false
+			for (var i = 0; i < selectedTasks.length; i++) {				ref.child(selectedTasks[i].$id).update({active: false});
 			}
-			// reset selectedTasks = []
 			selectedTasks = [];
 		},
-			// deletetasks will be the same
+		// it works until I refresh the page, and it's not updating it in firebase!
+		
+		removeTasks: function () {
+			for (var i = 0; i < selectedTasks.length; i++) {
+				tasks[i].remove();
+			}
+			selectedTasks = [];
+		},
 		
 		addTask: function (taskName) {
 			tasks.$add({
 				name: taskName,
-				active: true
+				active: true,
+				created_at: Firebase.ServerValue.TIMESTAMP
+				// code for the creation date to be added
 			});
 		},
 		
