@@ -48,6 +48,11 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 	// archive tasks
 	$scope.archiveTasks = function (task) {
 		TaskRunner.archiveTasks(task);
-	}
+	};
 	
+	// reactivate tasks
+	$scope.reactivateTasks = function (task) {
+	TaskRunner.reactivateTasks(task);
+	};
+										 
 });

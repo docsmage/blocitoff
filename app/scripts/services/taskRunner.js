@@ -20,7 +20,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		getActiveTasks: function () {
 			
 			var activeTasks = [],
-					totalTasks = tasks.length;
+			totalTasks = tasks.length;
 			
 			for (var i = 0; i < totalTasks; i++) {
 				if (tasks[i].active) {
@@ -34,7 +34,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		getArchivedTasks: function () {
 
 		var archivedTasks = [],
-				totalTasks = tasks.length;
+		totalTasks = tasks.length;
 		
 			for (var i = 0; i < totalTasks; i++) {
 				if (!tasks[i].active) {
@@ -45,17 +45,22 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			return archivedTasks;		
 		},
 	
-		// retrieves expired tasks for view - IN PROGRESS
+		// retrieves expired tasks for view
 		getExpiredTasks: function () {
 			
 			var expiredTasks = [],
-					totalTasks = tasks.length;
+			totalTasks = tasks.length;
+			var todaysDateTime = new Date().getTime();
+			// timestamp for today's date
+			var sevenDays = 604800000;
+			// 7 days in milliseconds
+			
 			for (var i = 0; i < totalTasks; i++) {
-				if (tasks[i].expired) { // doesn't exist yet
+				if (tasks[i].created_at <= (todaysDateTime - sevenDays)) {
+					// the logic here isn't right - fix it!
 					expiredTasks.push(tasks[i]);
 				}
 			}
-			
 			return expiredTasks;
 		},
 		
@@ -65,6 +70,13 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			}
 			selectedTasks = [];
 		},
+		
+		// moves tasks from active to archived
+		reactivateTasks: function () {
+			for (var i = 0; i < selectedTasks.length; i++) {				ref.child(selectedTasks[i].$id).update({active: true});
+			}
+			selectedTasks = [];
+		},		
 		
 		// removes tasks completely
 		removeTasks: function () {
