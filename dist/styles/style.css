@@ -23,6 +23,10 @@ border-color: red;
 	color: grey;
 }
 
+.expired {
+	color: lightgrey;
+}
+
 .active {
 	font-weight: bold;
 }
