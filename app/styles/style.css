@@ -15,8 +15,24 @@ border-color: red;
 */
 }
 
+.header {
+	font-weight: bold;
+	background-color: grey;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 .navbar {
 	font-weight: bold;
+	background-color: lightblue;
+	padding-top: 12px;
+}
+
+#taskscontainer {
+	background-color: #f2f2f2;
+	padding-top: 3px;
+	padding-bottom: 20px;
 }
 
 .archived {

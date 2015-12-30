@@ -1,33 +1,37 @@
-<!--Title-->
-<section class="title">
-	<h2>{{ title }}</h2>
-</section>
-
-<!--Display tasks-->
-<section class="tasks">
-	<section ng-repeat="task in tasks">
-		<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)"> 
-		<span ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}">{{ task.name }}</span>
+<div id="taskscontainer">
+	
+	<!--Title-->
+	<section class="title">
+		<h2>{{ title }}</h2>
 	</section>
-</section>
-<br>
 
-<!--Mark task as completed-->
-<button ng-click="markCompleted()">Mark as Complete</button>
-<br><br>
+	<!--Display tasks-->
+	<section class="tasks">
+		<section ng-repeat="task in tasks">
+			<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)">
+			<span ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}">{{ task.name }}</span>
+		</section>
+	</section>
+	<br>
 
-<!--Delete a task-->
-<button ng-click="removeTask()">Delete</button>
+	<!--Mark task as completed-->
+	<button ng-click="markCompleted()">Mark as Complete</button>
+	<br><br>
 
-<!--Mark as archived-->
-<button ng-click="archiveTasks()">Archive</button>
+	<!--Delete a task-->
+	<button ng-click="removeTask()">Delete</button>
 
-<!--Reactivate-->
-<button ng-click="reactivateTasks()" ng-hide="title == 'Active Tasks'">Reactivate</button>
-<br><br><br>
+	<!--Mark as archived-->
+	<button ng-click="archiveTasks()">Archive</button>
 
-<!--Add a new task-->
-<form ng-submit="addTask()">
-	<input ng-model="newTaskName" />
-		<button type="submit">Add</button>
-</form>
+	<!--Reactivate-->
+	<button ng-click="reactivateTasks()" ng-hide="title == 'Active Tasks'">Reactivate</button>
+	<br><br><br>
+
+	<!--Add a new task-->
+	<form ng-submit="addTask()">
+		<input ng-model="newTaskName" />
+			<button type="submit">Add</button>
+	</form>
+	
+</div>
