@@ -15,8 +15,6 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		getAllTasks: function () {
 			return tasks;	
 		},
-
-		// Note to self: getActiveTasks, getArchivedTasks, getCompletedTasks, && getExpiredTasks all do virtually the same thing - can probably be refactored into one function with an additional parameter
 		
 		// retrieves active tasks for view
 		getActiveTasks: function () {
@@ -47,6 +45,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			return archivedTasks;		
 		},
 		
+		// retrieves completed tasks for view
 		getCompletedTasks: function () {
 
 		var completedTasks = [],
@@ -79,6 +78,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			return expiredTasks;
 		},
 		
+		//retrieves expired tasks for view
 		expireTasks: function () {
 			for (var i = 0; i < totalTasks.length; i++) {
 				if (tasks[i].created_at <= (todaysDateTime - sevenDays)) {

@@ -15,14 +15,14 @@
 	<br>
 
 	<!--Mark task as completed-->
-	<button ng-click="markCompleted()">Mark as Complete</button>
+	<button ng-click="markCompleted()" ng-hide="title == 'Completed Tasks'">Mark as Complete</button>
 	<br><br>
 
 	<!--Delete a task-->
 	<button ng-click="removeTask()">Delete</button>
 
 	<!--Mark as archived-->
-	<button ng-click="archiveTasks()">Archive</button>
+	<button ng-click="archiveTasks()" ng-hide="title == 'Archived Tasks' || title == 'Expired Tasks' || title == 'Completed Tasks'">Archive</button>
 
 	<!--Reactivate-->
 	<button ng-click="reactivateTasks()" ng-hide="title == 'Active Tasks'">Reactivate</button>
