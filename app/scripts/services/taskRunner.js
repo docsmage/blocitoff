@@ -15,6 +15,8 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		getAllTasks: function () {
 			return tasks;	
 		},
+
+		// Note to self: getActiveTasks, getArchivedTasks, getCompletedTasks, && getExpiredTasks all do virtually the same thing - can probably be refactored into one function with an additional parameter
 		
 		// retrieves active tasks for view
 		getActiveTasks: function () {
@@ -77,6 +79,14 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			return expiredTasks;
 		},
 		
+		expireTasks: function () {
+			for (var i = 0; i < totalTasks.length; i++) {
+				if (tasks[i].created_at <= (todaysDateTime - sevenDays)) {
+					ref.child(totalTasks[i].$id).update({expired: true, active: false});
+				}
+			}
+		},
+		
 		// moves tasks from active to archived
 		archiveTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
@@ -85,10 +95,10 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			selectedTasks = [];
 		},
 		
-		// moves tasks from active to archived
+		// moves tasks from archived to active
 		reactivateTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
-				ref.child(selectedTasks[i].$id).update({active: true});
+				ref.child(selectedTasks[i].$id).update({active: true, expired: false, completed: false});
 			}
 			selectedTasks = [];
 		},		
@@ -107,7 +117,8 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 				name: taskName,
 				active: true,
 				created_at: Firebase.ServerValue.TIMESTAMP,
-				completed: false
+				completed: false,
+				expired:false
 			});
 		},
 		
@@ -121,7 +132,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		
 		markCompleted: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
-				ref.child(selectedTasks[i].$id).update({completed: true});
+				ref.child(selectedTasks[i].$id).update({completed: true, active: false});
 			}
 			selectedTasks = [];
 		}

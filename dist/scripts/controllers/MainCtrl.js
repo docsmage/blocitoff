@@ -54,6 +54,11 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 		TaskRunner.archiveTasks(task);
 	};
 	
+	// expire tasks
+	$scope.expireTasks = function (task) {
+		TaskRunner.expireTasks(task);
+	}
+	
 	// reactivate tasks
 	$scope.reactivateTasks = function (task) {
 	TaskRunner.reactivateTasks(task);
