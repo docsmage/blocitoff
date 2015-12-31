@@ -7,11 +7,17 @@
 
 	<!--Display tasks-->
 	<section class="tasks">
-		<section ng-repeat="task in tasks | taskFilter | orderBy:'!active'">
+		
+		<section ng-repeat="task in tasks | taskFilter | orderBy: ['!active', 'expired']">
+			
 			<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)">
+			
 			<span ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}">{{ task.name }}</span>
+			
 		</section>
+		
 	</section>
+	
 	<br>
 
 	<!--Mark task as completed-->
