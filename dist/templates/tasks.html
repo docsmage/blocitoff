@@ -1,45 +1,46 @@
 <div id="taskscontainer">
 	
-	<!--Title-->
+	<!-- Title -->
 	<section class="title">
 		<h2>{{ title }}</h2>
 	</section>
 
-	<!--Display tasks-->
+	<!-- Display tasks -->
 	<section class="tasks">
 		
-		<!--List of ordered tasks-->
+		<!-- List of ordered tasks -->
 		<section ng-repeat="task in tasks | taskFilter | orderBy: ['!active', 'expired']" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
 			
-			<!--Task checkboxes-->
+			<!-- Task checkboxes -->
 			<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)">
 			
-			<!--Tasks as printed names-->
+			<!-- Task names -->
 			<span ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}" ng-hide="hoverEdit">{{ task.name }}
 			</span>
 			
-			<!--Tasks as text boxes where the name can be edited: only shows when hovered over-->
-				<input ng-model="task.name"  class="textboxes" ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}" ng-show="hoverEdit" ng-change="tasks.$save(task)" />
-			
+			<!-- Task names in text fields where the name can be edited when hovered over -->
+			<input ng-model="task.name"  class="textboxes" ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}" ng-show="hoverEdit" ng-change="tasks.$save(task)">
+		
 		</section>
+	
 	</section>
 	<br>
 
-	<!--Mark task as completed-->
+	<!-- Mark task as completed -->
 	<button ng-click="markCompleted()" ng-hide="title == 'Completed Tasks'">Mark as Complete</button>
 	<br><br>
 
-	<!--Delete a task-->
+	<!-- Delete a task -->
 	<button ng-click="removeTask()">Delete</button>
 
-	<!--Mark as archived-->
+	<!-- Mark as archived -->
 	<button ng-click="archiveTasks()" ng-hide="title == 'Archived Tasks' || title == 'Expired Tasks' || title == 'Completed Tasks'">Archive</button>
 
-	<!--Reactivate-->
+	<!-- Reactivate -->
 	<button ng-click="reactivateTasks()" ng-hide="title == 'Active Tasks'">Reactivate</button>
 	<br><br><br>
 
-	<!--Add a new task-->
+	<!-- Add a new task -->
 	<form ng-submit="addTask()">
 		<input ng-model="newTaskName" />
 			<button type="submit">Add</button>
