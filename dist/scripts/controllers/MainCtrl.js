@@ -68,5 +68,16 @@ blocItOff.controller('MainCtrl', function($scope, TaskRunner, $rootScope) {
 	$scope.markCompleted = function (task) {
 	TaskRunner.markCompleted(task);
 	};
-										 
+	
+	// updates hoverEdit upon hover
+	$scope.hoverIn = function () {		
+		this.hoverEdit = true;
+		
+	};
+	
+	// updates hoverEdit upon hover
+	$scope.hoverOut = function () {	
+		this.hoverEdit = false;
+	};	
+	
 });

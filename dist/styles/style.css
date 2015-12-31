@@ -50,3 +50,8 @@ border-color: red;
 .completed {
 	text-decoration: line-through;
 }
+
+
+.textboxes {
+	width: 225px;
+}

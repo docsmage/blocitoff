@@ -8,16 +8,21 @@
 	<!--Display tasks-->
 	<section class="tasks">
 		
-		<section ng-repeat="task in tasks | taskFilter | orderBy: ['!active', 'expired']">
+		<!--List of ordered tasks-->
+		<section ng-repeat="task in tasks | taskFilter | orderBy: ['!active', 'expired']" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
 			
+			<!--Task checkboxes-->
 			<input type="checkbox" ng-model="task.selected" ng-change="selectTask(task)">
 			
-			<span ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}">{{ task.name }}</span>
+			<!--Tasks as printed names-->
+			<span ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}" ng-hide="hoverEdit">{{ task.name }}
+			</span>
+			
+			<!--Tasks as text boxes where the name can be edited: only shows when hovered over-->
+				<input ng-model="task.name"  class="textboxes" ng-class="{archived: !task.active, active: task.active, completed: task.completed, expired: task.expired}" ng-show="hoverEdit" ng-change="tasks.$save(task)" />
 			
 		</section>
-		
 	</section>
-	
 	<br>
 
 	<!--Mark task as completed-->
