@@ -3,9 +3,9 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 	// downloads data
 	var ref = new Firebase("https://shining-fire-1964.firebaseio.com/");
 
-	// holds tasks	
+	// holds tasks
 	var tasks = $firebaseArray(ref);
-	
+
 	// holds selected tasks
 	var selectedTasks = [];
 
@@ -13,15 +13,17 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 
 		// retrieves all tasks for view
 		getAllTasks: function () {
-			return tasks;	
+			
+			return tasks;
+			
 		},
-		
+
 		// retrieves active tasks for view
 		getActiveTasks: function () {
-			
-			var activeTasks = [],
-			totalTasks = tasks.length;
-			
+
+			var activeTasks = [];
+			var totalTasks = tasks.length;
+
 			for (var i = 0; i < totalTasks; i++) {
 				if (tasks[i].active) {
 					activeTasks.push(tasks[i]);
@@ -29,64 +31,57 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			}
 			return activeTasks;
 		},
-		
+
 		// retrieves archived tasks for view
 		getArchivedTasks: function () {
+			
+			var archivedTasks = [];
+			var totalTasks = tasks.length;
 
-		var archivedTasks = [],
-		totalTasks = tasks.length;
-		
 			for (var i = 0; i < totalTasks; i++) {
 				if (!tasks[i].active) {
 					archivedTasks.push(tasks[i]);
 					tasks[i]
 				}
 			}
-			return archivedTasks;		
+			return archivedTasks;
 		},
-		
+
 		// retrieves completed tasks for view
 		getCompletedTasks: function () {
+			
+			var completedTasks = [];
+			var totalTasks = tasks.length;
 
-		var completedTasks = [],
-		totalTasks = tasks.length;
-		
 			for (var i = 0; i < totalTasks; i++) {
 				if (tasks[i].completed) {
 					completedTasks.push(tasks[i]);
-					tasks[i]
 				}
 			}
-			return completedTasks;		
+			return completedTasks;
 		},
-	
-		// retrieves expired tasks for view
+		
+		// retrieves expired tasks for view and also actively reviews all tasks to see if they are expired
 		getExpiredTasks: function () {
+						
+			var expiredTasks = [];
+			var totalTasks = tasks.length;
 			
-			var expiredTasks = [],
-			totalTasks = tasks.length;
 			var todaysDateTime = new Date().getTime();
 			// timestamp for today's date
 			var sevenDays = 604800000;
-			// 7 days in milliseconds
+			// 7 days in milliseconds			
 			
 			for (var i = 0; i < totalTasks; i++) {
-				if (tasks[i].created_at <= (todaysDateTime - sevenDays)) {
+				if (tasks[i].created_at < (todaysDateTime - sevenDays) ) {
+					ref.child(tasks[i].$id).update({expired: true, active: false});
 					expiredTasks.push(tasks[i]);
 				}
+				
 			}
 			return expiredTasks;
 		},
-		
-		//retrieves expired tasks for view
-		expireTasks: function () {
-			for (var i = 0; i < totalTasks.length; i++) {
-				if (tasks[i].created_at <= (todaysDateTime - sevenDays)) {
-					ref.child(totalTasks[i].$id).update({expired: true, active: false});
-				}
-			}
-		},
-		
+
 		// moves tasks from active to archived
 		archiveTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
@@ -94,15 +89,15 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			}
 			selectedTasks = [];
 		},
-		
+
 		// moves tasks from archived to active
 		reactivateTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
 				ref.child(selectedTasks[i].$id).update({active: true, expired: false, completed: false});
 			}
 			selectedTasks = [];
-		},		
-		
+		},
+
 		// removes tasks completely
 		removeTasks: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
@@ -110,7 +105,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 			}
 			selectedTasks = [];
 		},
-		
+
 		// adds one new task at a time
 		addTask: function (taskName) {
 			tasks.$add({
@@ -121,7 +116,7 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 				expired:false
 			});
 		},
-		
+
 		// selects a task
 		selectTask: function (task) {
 			if (task.selected) {
@@ -129,13 +124,13 @@ blocItOff.factory("TaskRunner", function ($firebaseObject, $firebaseArray) {
 		} else {	selectedTasks.splice(selectedTasks.indexOf(task), 1);
 			}
 		},
-		
+
 		markCompleted: function () {
 			for (var i = 0; i < selectedTasks.length; i++) {
 				ref.child(selectedTasks[i].$id).update({completed: true, active: false});
 			}
 			selectedTasks = [];
 		}
-		
+
 	}; // ends return
 }); // ends factory
